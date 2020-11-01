@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Data
 public class Book {
     @Id
-    private Long isbn;
+    private String isbn;
     private String title;
-    private Double price;
+    private String price;
 }

@@ -21,9 +21,9 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
 
     private Book book;
 
-    //TextField isbn = new TextField("isbn");
+    TextField isbn = new TextField("isbn");
     TextField title = new TextField("title");
-    //TextField price = new TextField("price");
+    TextField price = new TextField("price");
 
     Button save = new Button("Save", VaadinIcon.CHECK.create());
     Button cancel = new Button("Cancel");
@@ -41,7 +41,7 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
     public BookEditor(BookRepo bookRepo) {
         this.bookRepo = bookRepo;
 
-        add(title,  actions);
+        add(isbn, price, title,  actions);
 
         binder.bindInstanceFields(this);
 
@@ -54,7 +54,7 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
 
         save.addClickListener(e -> save());
         delete.addClickListener(e -> delete());
-        cancel.addClickListener(e -> editBook(book));
+        cancel.addClickListener(e -> cancel());
         setVisible(false);
     }
 
@@ -66,6 +66,10 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
     private void save() {
         bookRepo.save(book);
         changeHandler.onChange();
+    }
+
+    public void cancel() {
+        setVisible(false);
     }
 
     public void editBook(Book newBook) {
