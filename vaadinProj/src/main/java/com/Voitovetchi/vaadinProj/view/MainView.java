@@ -5,7 +5,6 @@ import com.Voitovetchi.vaadinProj.domain.Book;
 import com.Voitovetchi.vaadinProj.repository.BookRepo;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -33,15 +32,12 @@ public class MainView extends VerticalLayout {
         filter.setValueChangeMode(ValueChangeMode.EAGER);
         filter.addValueChangeListener(e -> showBook(e.getValue()));
 
-        // Connect selected Customer to editor or hide if none is selected
         grid.asSingleSelect().addValueChangeListener(e -> {
             bookEditor.editBook(e.getValue());
         });
 
-        // Instantiate and edit new Customer the new button is clicked
         addNewBtn.addClickListener(e -> bookEditor.editBook(new Book()));
 
-        // Listen changes made by the editor, refresh data from backend
         bookEditor.setChangeHandler(() -> {
             bookEditor.setVisible(false);
             showBook(filter.getValue());

@@ -2,9 +2,11 @@ package com.Voitovetchi.vaadinProj.components;
 
 import com.Voitovetchi.vaadinProj.domain.Book;
 import com.Voitovetchi.vaadinProj.repository.BookRepo;
+import com.Voitovetchi.vaadinProj.services.Validator;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.KeyNotifier;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -20,6 +22,8 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
     private final BookRepo bookRepo;
 
     private Book book;
+
+    Dialog dialog = new Dialog();
 
     TextField isbn = new TextField("isbn");
     TextField title = new TextField("title");
@@ -64,8 +68,14 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
     }
 
     private void save() {
-        bookRepo.save(book);
-        changeHandler.onChange();
+        dialog.removeAll();
+        if (!Validator.isbnIsValid(isbn.getValue()) || !Validator.priceIsValid(price.getValue()) || title.getValue().isEmpty()) {
+            dialog.add("Wrong data. Isbn must be an 10 digits positive value and price should be greater than 0.");
+            dialog.open();
+        } else {
+            bookRepo.save(book);
+            changeHandler.onChange();
+        }
     }
 
     public void cancel() {
