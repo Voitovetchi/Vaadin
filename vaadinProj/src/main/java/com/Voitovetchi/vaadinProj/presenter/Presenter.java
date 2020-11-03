@@ -41,6 +41,7 @@ public class Presenter {
     }
 
     public void showBook(String title) {
+        System.out.println(title);
         if (title.isEmpty()) {
             mainView.getGrid().setItems(bookRepo.findAll());
         } else {
@@ -49,7 +50,6 @@ public class Presenter {
     }
 
     public void editBook(Book newBook) {
-        System.out.println(newBook.getIsbn());
         if (newBook == null) {
             mainView.getBookEditor().setVisible(false);
             return;
