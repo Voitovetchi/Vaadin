@@ -10,8 +10,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
+import lombok.Data;
+import lombok.Getter;
 
 @Route
+@Getter
 public class MainView extends VerticalLayout {
     private final BookRepo bookRepo;
 
@@ -30,13 +33,13 @@ public class MainView extends VerticalLayout {
         add(toolbar, grid, bookEditor);
 
         filter.setValueChangeMode(ValueChangeMode.EAGER);
-        filter.addValueChangeListener(e -> showBook(e.getValue()));
+        //filter.addValueChangeListener(e -> showBook(e.getValue()));
 
-        grid.asSingleSelect().addValueChangeListener(e -> {
+        /*grid.asSingleSelect().addValueChangeListener(e -> {
             bookEditor.editBook(e.getValue());
-        });
+        });*/
 
-        addNewBtn.addClickListener(e -> bookEditor.editBook(new Book()));
+        //addNewBtn.addClickListener(e -> bookEditor.editBook(new Book()));
 
         bookEditor.setChangeHandler(() -> {
             bookEditor.setVisible(false);
@@ -46,11 +49,5 @@ public class MainView extends VerticalLayout {
         showBook("");
     }
 
-    private void showBook(String title) {
-        if (title.isEmpty()) {
-            grid.setItems(bookRepo.findAll());
-        } else {
-            grid.setItems(bookRepo.findByTitle(title));
-        }
-    }
+
 }

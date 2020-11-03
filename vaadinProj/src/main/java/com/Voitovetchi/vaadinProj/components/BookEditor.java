@@ -14,10 +14,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
+import lombok.Getter;
 import lombok.Setter;
 
 @SpringComponent
 @UIScope
+@Getter
 public class BookEditor extends VerticalLayout implements KeyNotifier {
     private final BookRepo bookRepo;
 
@@ -34,7 +36,7 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
     Button delete = new Button("Delete", VaadinIcon.TRASH.create());
     HorizontalLayout actions = new HorizontalLayout(save, cancel, delete);
 
-    private Binder<Book> binder = new Binder<>(Book.class);
+
     @Setter
     private ChangeHandler changeHandler;
 
@@ -82,22 +84,5 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
         setVisible(false);
     }
 
-    public void editBook(Book newBook) {
-        if (newBook == null) {
-            setVisible(false);
-            return;
-        }
 
-        if (newBook.getIsbn() != null) {
-            book = bookRepo.findById(newBook.getIsbn()).orElse(newBook);
-        } else {
-            book = newBook;
-        }
-
-        binder.setBean(book);
-
-        setVisible(true);
-
-        title.focus();
-    }
 }

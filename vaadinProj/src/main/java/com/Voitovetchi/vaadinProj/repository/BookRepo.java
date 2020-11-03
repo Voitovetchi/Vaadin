@@ -10,5 +10,4 @@ import java.util.List;
 public interface BookRepo extends JpaRepository<Book, String> {
     @Query(value = "select * from book where title like concat('%', :title, '%')", nativeQuery = true)
     List<Book> findByTitle(@Param("title") String title);
-    //List<Book> findAll();
 }
