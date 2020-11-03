@@ -23,6 +23,8 @@ import lombok.Setter;
 public class BookEditor extends VerticalLayout implements KeyNotifier {
     private final BookRepo bookRepo;
 
+    private Binder<Book> binder = new Binder<>(Book.class);
+
     private Book book;
 
     Dialog dialog = new Dialog();
@@ -49,38 +51,11 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
 
         add(isbn, price, title,  actions);
 
-        //binder.bindInstanceFields(this);
-
         setSpacing(true);
 
         save.getElement().getThemeList().add("primary");
         delete.getElement().getThemeList().add("error");
 
-        addKeyPressListener(Key.ENTER, e -> save());
-
-        save.addClickListener(e -> save());
-        delete.addClickListener(e -> delete());
-        cancel.addClickListener(e -> cancel());
-        setVisible(false);
-    }
-
-    private void delete() {
-        bookRepo.delete(book);
-        changeHandler.onChange();
-    }
-
-    private void save() {
-        dialog.removeAll();
-        if (!Validator.isbnIsValid(isbn.getValue()) || !Validator.priceIsValid(price.getValue()) || title.getValue().isEmpty()) {
-            dialog.add("Wrong data. Isbn must be an 10 digits positive value and price should be greater than 0.");
-            dialog.open();
-        } else {
-            bookRepo.save(book);
-            changeHandler.onChange();
-        }
-    }
-
-    public void cancel() {
         setVisible(false);
     }
 

@@ -6,6 +6,7 @@ import com.Voitovetchi.vaadinProj.presenter.Presenter;
 import com.Voitovetchi.vaadinProj.repository.BookRepo;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Pre;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -38,20 +39,10 @@ public class MainView extends VerticalLayout {
         add(toolbar, grid, bookEditor);
 
         filter.setValueChangeMode(ValueChangeMode.EAGER);
-        //filter.addValueChangeListener(e -> showBook(e.getValue()));
 
-        /*grid.asSingleSelect().addValueChangeListener(e -> {
-            bookEditor.editBook(e.getValue());
-        });
+        Presenter presenter = new Presenter(this, bookRepo);
 
-        //addNewBtn.addClickListener(e -> bookEditor.editBook(new Book()));
-
-        bookEditor.setChangeHandler(() -> {
-            bookEditor.setVisible(false);
-            showBook(filter.getValue());
-        });*/
-
-        //Presenter.showBook("");
+        presenter.showBook("");
     }
 
 
