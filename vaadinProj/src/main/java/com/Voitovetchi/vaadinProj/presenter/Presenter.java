@@ -9,6 +9,8 @@ import com.vaadin.flow.data.binder.Binder;
 
 public class Presenter {
 
+    private Binder<Book> binder = new Binder<>(Book.class);
+
     private final MainView mainView;
     private final BookRepo bookRepo;
 
@@ -31,6 +33,8 @@ public class Presenter {
             showBook(mainView.getFilter().getValue());
         });
 
+        binder.bindInstanceFields(mainView.getBookEditor());
+
         mainView.getBookEditor().getSave().addClickListener(e -> save());
         mainView.getBookEditor().getDelete().addClickListener(e -> delete());
         mainView.getBookEditor().getCancel().addClickListener(e -> cancel());
@@ -45,6 +49,7 @@ public class Presenter {
     }
 
     public void editBook(Book newBook) {
+        System.out.println(newBook.getIsbn());
         if (newBook == null) {
             mainView.getBookEditor().setVisible(false);
             return;
@@ -56,7 +61,7 @@ public class Presenter {
             book = newBook;
         }
 
-        mainView.getBookEditor().getBinder().setBean(book);
+        binder.setBean(book);
 
         mainView.getBookEditor().setVisible(true);
 

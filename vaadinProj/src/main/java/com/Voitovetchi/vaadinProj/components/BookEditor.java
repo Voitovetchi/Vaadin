@@ -23,7 +23,7 @@ import lombok.Setter;
 public class BookEditor extends VerticalLayout implements KeyNotifier {
     private final BookRepo bookRepo;
 
-    private Binder<Book> binder = new Binder<>(Book.class);
+
 
     private Book book;
 
