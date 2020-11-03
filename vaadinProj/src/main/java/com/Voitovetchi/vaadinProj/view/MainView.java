@@ -2,6 +2,7 @@ package com.Voitovetchi.vaadinProj.view;
 
 import com.Voitovetchi.vaadinProj.components.BookEditor;
 import com.Voitovetchi.vaadinProj.domain.Book;
+import com.Voitovetchi.vaadinProj.presenter.Presenter;
 import com.Voitovetchi.vaadinProj.repository.BookRepo;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -26,9 +27,13 @@ public class MainView extends VerticalLayout {
 
     private final BookEditor bookEditor;
 
+    //private final Presenter presenter;
+
     public MainView(BookRepo bookRepo, BookEditor bookEditor) {
         this.bookRepo = bookRepo;
         this.bookEditor = bookEditor;
+
+
 
         add(toolbar, grid, bookEditor);
 
@@ -37,16 +42,16 @@ public class MainView extends VerticalLayout {
 
         /*grid.asSingleSelect().addValueChangeListener(e -> {
             bookEditor.editBook(e.getValue());
-        });*/
+        });
 
         //addNewBtn.addClickListener(e -> bookEditor.editBook(new Book()));
 
         bookEditor.setChangeHandler(() -> {
             bookEditor.setVisible(false);
             showBook(filter.getValue());
-        });
+        });*/
 
-        showBook("");
+        //Presenter.showBook("");
     }
 
 

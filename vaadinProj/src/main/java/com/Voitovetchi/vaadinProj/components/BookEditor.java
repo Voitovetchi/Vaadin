@@ -49,7 +49,7 @@ public class BookEditor extends VerticalLayout implements KeyNotifier {
 
         add(isbn, price, title,  actions);
 
-        binder.bindInstanceFields(this);
+        //binder.bindInstanceFields(this);
 
         setSpacing(true);
 

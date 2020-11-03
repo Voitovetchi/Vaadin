@@ -24,9 +24,14 @@ public class Presenter {
         });
 
         mainView.getAddNewBtn().addClickListener(e -> editBook(new Book()));
+
+        mainView.getBookEditor().setChangeHandler(() -> {
+            mainView.getBookEditor().setVisible(false);
+            showBook(mainView.getFilter().getValue());
+        });
     }
 
-    private void showBook(String title) {
+    public void showBook(String title) {
         if (title.isEmpty()) {
             mainView.getGrid().setItems(bookRepo.findAll());
         } else {
