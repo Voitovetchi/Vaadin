@@ -1,4 +1,4 @@
-package com.Voitovetchi.vaadinProj.services;
+package com.Voitovetchi.vaadinProj.presenter.services;
 
 public class Validator {
 

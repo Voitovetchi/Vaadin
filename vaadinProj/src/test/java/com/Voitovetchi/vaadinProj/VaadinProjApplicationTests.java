@@ -1,10 +1,9 @@
 package com.Voitovetchi.vaadinProj;
 
-import com.Voitovetchi.vaadinProj.services.Validator;
+import com.Voitovetchi.vaadinProj.presenter.services.Validator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 
 @SpringBootTest
 class VaadinProjApplicationTests {
@@ -23,4 +22,5 @@ class VaadinProjApplicationTests {
 		Assertions.assertFalse(Validator.priceIsValid("-45.6"));
 		Assertions.assertFalse(Validator.priceIsValid("price"));
 	}
+
 }

@@ -1,12 +1,16 @@
 package com.Voitovetchi.vaadinProj.presenter;
 
-import com.Voitovetchi.vaadinProj.domain.Book;
-import com.Voitovetchi.vaadinProj.repository.BookRepo;
-import com.Voitovetchi.vaadinProj.services.Validator;
+import com.Voitovetchi.vaadinProj.model.domain.Book;
+import com.Voitovetchi.vaadinProj.model.repository.BookRepo;
+import com.Voitovetchi.vaadinProj.presenter.services.Validator;
 import com.Voitovetchi.vaadinProj.view.MainView;
-import com.vaadin.flow.component.Key;
 import com.vaadin.flow.data.binder.Binder;
 
+/**
+ * Class for presenter layer. Sets all listeners in its constructor.
+ *
+ * @author IuriiVoitovetchi.
+ */
 public class Presenter {
 
     private Binder<Book> binder = new Binder<>(Book.class);
@@ -40,8 +44,12 @@ public class Presenter {
         mainView.getBookEditor().getCancel().addClickListener(e -> cancel());
     }
 
+    /**
+     * Shows list of books in UI.
+     *
+     * @param title book title.
+     */
     public void showBook(String title) {
-        System.out.println(title);
         if (title.isEmpty()) {
             mainView.getGrid().setItems(bookRepo.findAll());
         } else {
@@ -49,6 +57,11 @@ public class Presenter {
         }
     }
 
+    /**
+     * Edits given book object.
+     *
+     * @param newBook book to edit.
+     */
     public void editBook(Book newBook) {
         if (newBook == null) {
             mainView.getBookEditor().setVisible(false);
@@ -66,15 +79,19 @@ public class Presenter {
         mainView.getBookEditor().setVisible(true);
 
         mainView.getBookEditor().getTitle().focus();
-
-        //mainView.getBookEditor().addKeyPressListener(Key.ENTER, e -> save());
     }
 
+    /**
+     * Deletes a book from list and repository.
+     */
     private void delete() {
         bookRepo.delete(book);
         mainView.getBookEditor().getChangeHandler().onChange();
     }
 
+    /**
+     * Saves a book to a list and repository.
+     */
     private void save() {
         mainView.getBookEditor().getDialog().removeAll();
         if (!Validator.isbnIsValid(mainView.getBookEditor().getIsbn().getValue())
@@ -88,6 +105,9 @@ public class Presenter {
         }
     }
 
+    /**
+     * Closes book editor.
+     */
     public void cancel() {
         mainView.getBookEditor().setVisible(false);
     }
